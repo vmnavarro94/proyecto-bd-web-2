@@ -22,6 +22,28 @@ class CategoryService {
 
     return categories
   }
+
+  async findById(id: string) {
+    const category = await Categories.findById(id).catch((error) => {
+      console.log('Error while connecting to the DB', error)
+    })
+
+    if (!category) {
+      throw boom.notFound('Category not found')
+    }
+
+    return category
+  }
+
+  async findByName(name: string) {
+    const category = await Categories.findOne({ name }).catch((error) => {
+      console.log('Error while connecting to the DB', error)
+    })
+
+    if (!category) {
+      throw boom.notFound('Category not found')
+    }
+  }
 }
 
 export default CategoryService
