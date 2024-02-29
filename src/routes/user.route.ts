@@ -1,5 +1,5 @@
 import express from 'express'
-import { User } from '../types/user.type'
+import { User, UserModel } from '../types/user.type'
 import UserService from '../services/user.service'
 import boom from '@hapi/boom'
 
@@ -11,7 +11,7 @@ router.post('/', async (req, res, next) => {
     //TODO: Validate user data coming from the request
     const user: User = req.body
     const newUser = await service.create(user)
-    res.status(201).json({ user: newUser })
+    res.status(201).json({ user: newUser.toClient() })
   } catch (error) {
     next(error)
   }
